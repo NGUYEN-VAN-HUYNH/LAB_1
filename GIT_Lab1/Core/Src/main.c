@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Ex3.h"
+#include "Ex4.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,7 +64,7 @@ static void MX_GPIO_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  init_exercise3();
+  init_exercise4();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -94,7 +94,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    exercise3_run();
+    exercise4_run();
     HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
