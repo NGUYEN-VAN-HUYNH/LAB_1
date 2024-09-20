@@ -37,9 +37,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00000e91  00000000  00000000  00024988  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00004baf  00000000  00000000  00025819  2**0
+ 17 .debug_line   00004bad  00000000  00000000  00025819  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00079d2e  00000000  00000000  0002a3c8  2**0
+ 18 .debug_str    00079d30  00000000  00000000  0002a3c6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  19 .comment      00000053  00000000  00000000  000a40f6  2**0
                   CONTENTS, READONLY
@@ -76,13 +76,13 @@ Disassembly of section .text:
  8000144:	20000010 	.word	0x20000010
  8000148:	0800120c 	.word	0x0800120c
 
-0800014c <init_exercise8>:
+0800014c <init_exercise9>:
+ *
+ *  Created on: Sep 16, 2024
+ *      Author: Huynh
  */
-
-
-
-#include "EX8.h"
-void init_exercise8(){
+#include "EX9.h"
+void init_exercise9(){
  800014c:	b480      	push	{r7}
  800014e:	af00      	add	r7, sp, #0
 
@@ -92,53 +92,51 @@ void init_exercise8(){
  8000154:	bc80      	pop	{r7}
  8000156:	4770      	bx	lr
 
-08000158 <setNumberOnClock>:
-
-// bat led thu "num" tinh tu chan GPIO_PIN_4
-void setNumberOnClock(int num) {
+08000158 <clearNumberOnClock>:
+// tat led thu "num" tinh tu chan GPIO_PIN_4
+void clearNumberOnClock(int num) {
  8000158:	b580      	push	{r7, lr}
  800015a:	b082      	sub	sp, #8
  800015c:	af00      	add	r7, sp, #0
  800015e:	6078      	str	r0, [r7, #4]
-	if(num >= 0 && num <= 11)
+    if (num >= 0 && num <= 11)
  8000160:	687b      	ldr	r3, [r7, #4]
  8000162:	2b00      	cmp	r3, #0
- 8000164:	db0c      	blt.n	8000180 <setNumberOnClock+0x28>
+ 8000164:	db0c      	blt.n	8000180 <clearNumberOnClock+0x28>
  8000166:	687b      	ldr	r3, [r7, #4]
  8000168:	2b0b      	cmp	r3, #11
- 800016a:	dc09      	bgt.n	8000180 <setNumberOnClock+0x28>
-	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 << num, GPIO_PIN_SET);
+ 800016a:	dc09      	bgt.n	8000180 <clearNumberOnClock+0x28>
+    	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 << num , GPIO_PIN_RESET);
  800016c:	2210      	movs	r2, #16
  800016e:	687b      	ldr	r3, [r7, #4]
  8000170:	fa02 f303 	lsl.w	r3, r2, r3
  8000174:	b29b      	uxth	r3, r3
- 8000176:	2201      	movs	r2, #1
+ 8000176:	2200      	movs	r2, #0
  8000178:	4619      	mov	r1, r3
- 800017a:	4806      	ldr	r0, [pc, #24]	; (8000194 <setNumberOnClock+0x3c>)
+ 800017a:	4806      	ldr	r0, [pc, #24]	; (8000194 <clearNumberOnClock+0x3c>)
  800017c:	f000 fc26 	bl	80009cc <HAL_GPIO_WritePin>
-	if(num < 0 || num > 11) return; // khong lam gi ca
+    if (num < 0 || num > 11) return;
  8000180:	687b      	ldr	r3, [r7, #4]
  8000182:	2b00      	cmp	r3, #0
- 8000184:	db02      	blt.n	800018c <setNumberOnClock+0x34>
+ 8000184:	db02      	blt.n	800018c <clearNumberOnClock+0x34>
  8000186:	687b      	ldr	r3, [r7, #4]
  8000188:	2b0b      	cmp	r3, #11
- 800018a:	e000      	b.n	800018e <setNumberOnClock+0x36>
+ 800018a:	e000      	b.n	800018e <clearNumberOnClock+0x36>
  800018c:	bf00      	nop
-
 }
  800018e:	3708      	adds	r7, #8
  8000190:	46bd      	mov	sp, r7
  8000192:	bd80      	pop	{r7, pc}
  8000194:	40010800 	.word	0x40010800
 
-08000198 <exercise8_run>:
+08000198 <exercise9_run>:
 
-void exercise8_run(){
+void exercise9_run(){
  8000198:	b580      	push	{r7, lr}
  800019a:	af00      	add	r7, sp, #0
-			  setNumberOnClock(5); // bat led thu 5
+    clearNumberOnClock(5); // tat led thu 5
  800019c:	2005      	movs	r0, #5
- 800019e:	f7ff ffdb 	bl	8000158 <setNumberOnClock>
+ 800019e:	f7ff ffdb 	bl	8000158 <clearNumberOnClock>
 }
  80001a2:	bf00      	nop
  80001a4:	bd80      	pop	{r7, pc}
@@ -153,8 +151,8 @@ int main(void)
  80001a6:	b580      	push	{r7, lr}
  80001a8:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN 1 */
-  init_exercise8();
- 80001aa:	f7ff ffcf 	bl	800014c <init_exercise8>
+  init_exercise9();
+ 80001aa:	f7ff ffcf 	bl	800014c <init_exercise9>
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -181,12 +179,12 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    exercise8_run();
- 80001ba:	f7ff ffed 	bl	8000198 <exercise8_run>
+    exercise9_run();
+ 80001ba:	f7ff ffed 	bl	8000198 <exercise9_run>
     HAL_Delay(1000);
  80001be:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  80001c2:	f000 f981 	bl	80004c8 <HAL_Delay>
-    exercise8_run();
+    exercise9_run();
  80001c6:	e7f8      	b.n	80001ba <main+0x14>
 
 080001c8 <SystemClock_Config>:
